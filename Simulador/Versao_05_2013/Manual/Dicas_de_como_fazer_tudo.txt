@@ -1,0 +1,54 @@
+Tudo isso foi testado em uma Maquina Virtual com Windows 7, mas ja' funcionou no Win 8 e no Vista!
+Tambem testei o procedimento para funcionar no Windows das maquinas novas do laboratorio e DEU CERTO!
+ 
+O procdimento e' o seguinte:
+1) Baixe as libraries do GTK em:
+http://ftp.gnome.org/pub/gnome/binaries/win32/gtk+/2.24/gtk+-bundle_2.24.10-20120208_win32.zip
+
+2) Deszipe em uma pasta qualquer...
+
+3) Inclua a subpasta BIN da pasta qualquer no path do windows
+- Se for no seu note, va'em:
+Painel de Controle\Sistema e Segurança\Sistema
+Entre em configuracoes avancadas do sistema
+Entre em Avancado / Variaveis de Ambiente
+Em variaveis do sistema edite o path e inclua o caminho para a pasta bin do GTK
+- Se for nos PCs do Lab, voce nao tera' permissao de fazer isso, mas pode abrir um command prompt (cmd) e digitar:
+path C:\Caminho para a pasta GTK que voce deszipou\BIN
+Isso vai funcionar ate' voce fechar este command prompt! (Nao feche o prompt!!!!!!!)
+
+4) Digite (no prompt):
+pkg-config --cflags gtk+-2.0
+
+Se der comando nao reconhecido ... E' porque deu problema ao incluir o bin no path ... Volte ao step 3) ...
+
+5) Baixe o simulador/montador e deszipe-os em uma pasta
+
+6) Va' para a pasta no MESMO COMMAND PROMPT que voce mudou o path !!
+
+7) Edite um programa em assembly e salveo como teste.asm
+
+8) Para montar: montador teste.asm teste.mif
+
+9) Para simular: simulador teste.mif charmap.mif
+
+Isso deve funcionar!! 
+
+
+
+
+*) ALTERNATIVA via Notepad++: E' possivel usar o Notepad++ como IDE ...
+	1) Caso voce nao possua o Notepad++, faca o seu download e instale-o. http://www.filehorse.com/download-notepad/1551/download/
+
+	2- No notepad++, instale o plugin NppExec:
+2.1- Na barra de ferramentas: Plugins->Plugin Manager->Show Plugin Manager
+2.2- Na lista que apareceu, procure por NppExec.
+2.3- Marque-o para instalacao, clicando no seu quadrado da esquerda.
+2.4- Clique em Install e aguarde a instalacao.
+2.5- Se tudo der certo uma aba do NppExec deve aparecer em Plugins.
+3- Nas opcoes do NppExec selecione Executar e copie e cole o seguinte script:
+
+cmd /c cd $(CURRENT_DIRECTORY) && cmd /c Montador $(NAME_PART).asm $(NAME_PART).mif && simulador $(NAME_PART).mif charmap.mif
+
+4- Salve com o nome que desejar, definindo a hotkey para executar o script
+
