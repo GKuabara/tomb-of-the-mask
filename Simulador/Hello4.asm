@@ -62,8 +62,7 @@ main:
 	loadn r3, #teste
 	loadn r2, #256		; Seleciona a COR da Mensagem
 	
-	add r4, r3, r1
-	
+	inchar r4
 	outchar r4, r0
 	
 	;call Imprimestr   ;  r0 = Posicao da tela que o primeiro caractere da mensagem sera' impresso;  r1 = endereco onde comeca a mensagem; r2 = cor da mensagem.   Obs: a mensagem sera' impressa ate' encontrar "/0"
