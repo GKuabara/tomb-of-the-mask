@@ -70,7 +70,7 @@ loop_principal:
 ; faz o delay de cada movimentação	
 delay_mov
 		nop
-		dec r5
+		dec r5 ; falta iniciar r5
 		cmp r2, r3
 		jne delay_mov
 
@@ -164,6 +164,24 @@ confere_colisao:
 		jeq game_over
 				
 ; fim movimentação-----------------------------------
+
+; seleciona se o jogador ganhou ou perdeu
+game_over:
+		loadn r1, #1
+		cmp r0, r1
+		jeq ganhou
+		
+		loadn r1 #0
+		cmp r0, r1
+		jeq perdeu
+		
+ganhou:
+		load r0, conta_bancaria
+		
+
+perdeu:
+		load r0, conta_bancaria
+
 
 apaga_menu: 
 		loadn r0, #575
