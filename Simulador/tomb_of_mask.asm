@@ -1,7 +1,7 @@
 ; ────┤ Trabalho de Prática em Organização Computacional │ Agosto 2021 ├────
 ; Gabriel Victor Cardoso Fernandes - 11878296
-; Gabriel Alves Kuabara - 
-; Lourenço de Salles Roselino
+; Gabriel Alves Kuabara - 11275043
+; Lourenço de Salles Roselino - 11796805
 
 ; Caracteres que constroem o Mapa
 ; boneco - z amarelo
@@ -13,12 +13,12 @@
 jmp main
 
 ; ────────┤ Strings e dados do menu e do mapa ├────────
-menu_art : string "                                                                                                                                                                            Nome do Jogo                                                                                                                                                                                        Gabriel Alves Kuabara                                                       Gabriel Victor Cardoso Fernandes                                                 Lourenyo de Salles Roselino                                                                                                       }}}}}}}}                                }      }                                } }  } }                                }      }                                } }  } }                                } }}}} }                                }      }                                }}}}}}}}                                                                                                                                                                                                                                Pressione Enter para Jogar       "
-mapa : string "}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}*                    )   }}}}}}}}}}}}}}}*}}}}}}}}}}}}}}}}}}}}}}} }}}}}}}}}}}}}}}*}}}}}}}}}}}}}}}}}}}}}}}   }}}}}}}}}}}}}*}}}}}}}}}}}******}}}}}} } }}}}}}}}}}}}}*}}}}}}}}}}}*}}{}*}}}}        }}}}}}}}}}******************}}}}  * *      }}}}}}}*}          }}}*}}}}}}} ***   }} }}}}}}}*            }}*}}}}}}    *   }}}}}}}}}}*}********************        }}}}}}}}}}*}}}}}}}}}}} }}}}}}}}}}}}}}}}}}}}}}}}}}}*}}}*******}                         }}}*}}}*******} }}}} }}}}}}}}}}}}}}}}}} }}}***********} }}}} }}}}}}}}}}}}}}}}}}  }}}}}}}}}}}}}} }}}}****************}}}  }}}}}}****}}}} }}}}*********************}}}}}**********}}}}*              **** }}}}}}****}}}}}*}}}{*      }      }****}}}}}  ****}*****}}}{********      }}}}}}}}}} }***}}*}}}}}}}}}}}}}}}*}}}}}}}}}}}}}}}} }}}}}}*}}}}}}}}}}}}}}}*}}}}}}}}}}}}}}}} }}}}}**}}}}}}}}}}}}}}}*}}}}}}}}}}}}}}}} }}}}}*}}}}}}}}}}}}}}}}*}}}}}}}}}}}}}}}} }}}}}*}}}}}}}}}}}}}}}}*}}}}}}}}}}}}}}}}*****************************}}}}}}}}}}} }}}}}*}}}}}}}}}}}}}}}} }}}} }}}}}}}}}}} }}}}}*}}}}}}}}}}}}}}}}           }}}}}{*                                  }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}             GET TO THE )               "
+menu_art : string "                                                                                                                                                                          Tomb of the Mask                                                                                                                                                                                      Gabriel Alves Kuabara                                                       Gabriel Victor Cardoso Fernandes                                                 Lourenyo de Salles Roselino                                                                                                       }}}}}}}}                                }      }                                } }  } }                                }      }                                } }  } }                                } }}}} }                                }      }                                }}}}}}}}                                                                                                                                                                                                                                Pressione Enter para Jogar       "
+mapa : string "}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}*                    )   }}}}}}}}}}}}}}}*}}}}}}}}}}}}}}}}}}}}}}} }}}}}}}}}}}}}}}*}}}}}}}}}}}}}}}}}}}}}}}   }}}}}}}}}}}}}*}}}}}}}}}}}******}}}}}} } }}}}}}}}}}}}}*}}}}}}}}}}}*}}{}*}}}}        }}}}}}}}}}******************}}}}  * *      }}}}}}}*}          }}}*}}}}}}} ***   }} }}}}}}}*              *}}}}}}  }}*      }}}}}}}*            }}*}}}}}}    *   }}}}}}}}}}*}********************        }}}}}}}}}}*}}}}}}}}}}} }}}}}}}}}}}}}}}}}}}}}}}}}}}*}}}*******}                         }}}*}}}*******} }}}} }}}}}}}}}}}}}}}}}} }}}**********}} }}}} }}}}}}}}}}}}}}}}}}  }}}}}}}}}}}}}} }}}}****************}}}  }}}}}}****}}}} }}}}*********************}}}}}**********}}}}*              **** }}}}}}****}}}}}*}}}{*      }      }****}}}}}  ****}*****}}}{********      }}}}}}}}}} }***}}*}}}}}}}}}}}}}}}*}}}}} }}}}}}}}}} }}}}}}*}}}}}}}}}}}}}}}*}}}}} }}}}}}}}}} }}}}}**}}}}}}}}}}}}}}}*}}}}} }}}}}}}}}} }}}}}*}}}}}}}}}}}}}}}}*}}}}} }}}}}}}}}}***************************** }}}}}}}}}} }}}}}*}}}}}}}}}}}}}}}} }}}} }}}}}}}}}}} }}}}}*}}}}}}}}}}}}}}}}  s        }}}}}{*                                  }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}             GET TO THE )               "
 
 ; Temos 2 linhas pra printar: menu_art[1080] e menu_art[1120]
-mensagem_vitoria: string "abluble"
-mensagem_derrota: string "akwtitita"
+mensagem_vitoria: string "Parabens, voce venceu"
+mensagem_derrota: string "Tente novamente parca"
 
 cores_sprites : var #5
 static cores_sprites + #0, #2816	; Cor da moeda
@@ -33,17 +33,15 @@ static cores_sprites + #4, #0		; sem cor
 posicao_inicial : var #1
 static posicao_inicial, #1067	; Posicao inicial do boneco
 
-conta_bancaria: var #3			; guarda quanta moedinhas o jogador tem
+conta_bancaria: var #1			; guarda quanta moedinhas o jogador tem
 static conta_bancaria + #0, #0
-static conta_bancaria + #1, #0
-static conta_bancaria + #2, #0
 
 posicao_print_moedas: var #1
 static posicao_print_moedas, #1196	; Posicao da tela onde imprimir as moedas
 
 ;Variaveis de velocidade
 velocidade : var #2
-static velocidade + #0, #40	; velocidade vertical   (subindo || parado)
+static velocidade + #0, #40	; velocidade vertical   (subindo || descendo)
 static velocidade + #1, #1	; velocidade horizontal (esquerda || direita)
 ; ─────────────────────────────────────────────────────
 
@@ -64,7 +62,6 @@ imprime_menu:
 	loadn r1, #menu_art ; r1 = end(menu_art)
 	call imprime_string	; Printa menu
 
-	
 	cmp r6, r7		; Caso o estado do jogo nao seja o inicial, acabar programa
 	jeq iniciar_jogo
 	call delay_clock
@@ -387,7 +384,7 @@ atualizar_moedas:
 ; Escreve uma string dentro de outra a partir da posicao no r6
 ; r6 = end(string)
 copia_string:
-	loadn r3, #1080		; Posicao inicial da mensagem de finalizacao
+	loadn r3, #1089		; Posicao inicial da mensagem de finalizacao
 	loadn r4, #menu_art	; r4 = end(menu)
 	add r3, r3, r4		; r3 = end(menu[pos_mensagem])
 	loadn r4, #'\0'		; Caractere de parada da string
