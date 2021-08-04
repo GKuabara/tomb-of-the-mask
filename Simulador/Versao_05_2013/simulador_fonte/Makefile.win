@@ -1,0 +1,39 @@
+# Project: simulador
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = 
+OBJ  = Controller.o main.o Model.o View.o $(RES)
+LINKOBJ  = Controller.o main.o Model.o View.o $(RES)
+LIBS =  -L"C:/Dev-Cpp/lib" -lgtk-win32-2.0 -lgdk-win32-2.0 -limm32 -lshell32 -lole32 -latk-1.0 -lgdk_pixbuf-2.0 -lpangocairo-1.0 -lcairo -lpangoft2-1.0 -lpangowin32-1.0 -lgdi32 -lpango-1.0 -lm -lgobject-2.0 -lgmodule-2.0 -lglib-2.0 -lintl -lfreetype -lzdll -lfontconfig -lpng13 -lgthread-2.0   
+INCS =  -I"C:/Dev-Cpp/include"  -I"C:/Dev-Cpp/include/gtk-2.0"  -I"C:/Dev-Cpp/include/atk-1.0"  -I"C:/Dev-Cpp/include/cairo"  -I"C:/Dev-Cpp/include/pango-1.0"  -I"C:/Dev-Cpp/include/glib-2.0"  -I"C:/Dev-Cpp/lib/gtk-2.0/include"  -I"C:/Dev-Cpp/lib/glib-2.0/include"  -I"C:/Dev-Cpp"  -I"C:/Dev-Cpp/lib" 
+CXXINCS =  -I"C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include"  -I"C:/Dev-Cpp/include/c++/3.4.2/backward"  -I"C:/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"C:/Dev-Cpp/include/c++/3.4.2"  -I"C:/Dev-Cpp/include"  -I"C:/Dev-Cpp/include/gtk-2.0"  -I"C:/Dev-Cpp/include/atk-1.0"  -I"C:/Dev-Cpp/include/cairo"  -I"C:/Dev-Cpp/include/pango-1.0"  -I"C:/Dev-Cpp/include/glib-2.0"  -I"C:/Dev-Cpp/lib/gtk-2.0/include"  -I"C:/Dev-Cpp/lib/glib-2.0/include"  -I"C:/Dev-Cpp/lib"  -I"C:/Dev-Cpp"  -I"C:/Dev-Cpp/include/glib-2.0/glib" 
+BIN  = simulador.exe
+CXXFLAGS = $(CXXINCS)   -mms-bitfields
+CFLAGS = $(INCS)   -mms-bitfields
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before simulador.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "simulador.exe" $(LIBS)
+
+Controller.o: Controller.cpp
+	$(CPP) -c Controller.cpp -o Controller.o $(CXXFLAGS)
+
+main.o: main.cpp
+	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+
+Model.o: Model.cpp
+	$(CPP) -c Model.cpp -o Model.o $(CXXFLAGS)
+
+View.o: View.cpp
+	$(CPP) -c View.cpp -o View.o $(CXXFLAGS)
